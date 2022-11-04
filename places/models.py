@@ -42,9 +42,9 @@ class Image(models.Model):
                             verbose_name='Название экскурсии',
                             related_name='images')
 
-  imgs = models.ImageField(
+  img = models.ImageField(
     upload_to='place_images',
-    verbose_name='Картинки с экскурсии',
+    verbose_name='Картинка с экскурсии',
     blank=True,
   )
 
