@@ -23,7 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index_page, name='index'),
     path('__debug__/', include('debug_toolbar.urls')),
-    path('places/<int:place_id>/', views.places)
+    path('places/<int:place_id>/', views.places, name='place_info')
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
