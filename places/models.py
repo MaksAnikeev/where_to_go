@@ -1,4 +1,5 @@
 from django.db import models
+from tinymce.models import HTMLField
 
 
 class Place(models.Model):
@@ -10,7 +11,7 @@ class Place(models.Model):
     verbose_name='Краткое описание'
   )
 
-  description_long = models.TextField(
+  description_long = HTMLField(
     verbose_name='Полное описание',
     blank=True,
   )
@@ -56,7 +57,7 @@ class Image(models.Model):
   )
 
   class Meta:
-    ordering = ['number']
+    ordering = ['place']
     db_table = 'image'
     verbose_name = 'картинка'
 

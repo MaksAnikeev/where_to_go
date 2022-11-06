@@ -21,6 +21,7 @@ class PlaceAdmin(SortableAdminMixin, admin.ModelAdmin):
 
 @admin.register(Image)
 class ImageAdmin(admin.ModelAdmin):
+    list_display = ('place', 'number', 'preview')
     fields = ['place', 'number', 'img', 'preview', ]
     raw_id_fields = ('place', )
     readonly_fields = ['preview']
