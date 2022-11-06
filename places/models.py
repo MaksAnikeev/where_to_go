@@ -27,6 +27,7 @@ class Place(models.Model):
 
 
   class Meta:
+    ordering = ['id']
     db_table = 'place'
     verbose_name = 'место'
 
@@ -55,6 +56,7 @@ class Image(models.Model):
   )
 
   class Meta:
+    ordering = ['number']
     db_table = 'image'
     verbose_name = 'картинка'
 
