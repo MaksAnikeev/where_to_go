@@ -1,6 +1,7 @@
 from django.core.management.base import BaseCommand
 from ...models import Image, Place
 import requests
+import os
 
 
 class Command(BaseCommand):
@@ -31,11 +32,12 @@ class Command(BaseCommand):
         for number, img in enumerate(imgs, start=1):
             response_img = requests.get(img)
             response_img.raise_for_status()
-            with open(f'media/place_images/{title}{number}.jpg', 'wb') as file:
+            file_path = os.path.join('media', 'place_images', f'{title}{number}.jpg')
+            with open(file_path, 'wb') as file:
                 file.write(response_img.content)
             Image.objects.get_or_create(
                 place=place[0],
-                img=f'place_images/{title}{number}.jpg',
+                img=os.path.join('place_images', f'{title}{number}.jpg'),
                 number=number,
             )
         print(f'Объект {title} с соответствующими картинками создан')
