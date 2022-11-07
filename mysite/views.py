@@ -5,7 +5,12 @@ from django.urls import reverse
 from places.models import Place, Image
 
 
-def place_info(number, place):
+def place_info(place):
+    if place.title.partition('«')[2].partition('»')[0]:
+        title = place.title.partition('«')[2].partition('»')[0]
+    else:
+        title = place.title
+
     return {
         "type": "Feature",
         "geometry": {
@@ -13,9 +18,9 @@ def place_info(number, place):
             "coordinates": [place.lng, place.lat]
         },
         "properties": {
-            "title": place.title.partition('«')[2].partition('»')[0],
-            "placeId": number,
-            "detailsUrl": reverse('place_info', args=[number])
+            "title": title,
+            "placeId": place.id,
+            "detailsUrl": reverse('place_info', args=[place.id])
         },
     }
 
@@ -25,7 +30,7 @@ def index_page(request):
     context = {
         "places_info": {
             "type": "FeatureCollection",
-            "features": [place_info(number, place) for number, place in enumerate(places, start=1)]}
+            "features": [place_info(place) for place in places]}
 
     }
     return render(request, 'index.html', context)
