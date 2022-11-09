@@ -1,4 +1,4 @@
-Django==3.2.10
+Django==4.0
 django-debug-toolbar
 django-admin-sortable2==2.0
 environs==9.5.0
