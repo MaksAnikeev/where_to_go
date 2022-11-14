@@ -19,14 +19,10 @@ class Place(models.Model):
 
     lng = models.FloatField(
         verbose_name='Долгота/Longitude',
-        blank=True,
-        null=True
         )
 
     lat = models.FloatField(
         verbose_name='Широта/Latitude',
-        blank=True,
-        null=True
         )
 
     class Meta:
@@ -50,7 +46,6 @@ class Image(models.Model):
     img = models.ImageField(
         upload_to='place_images',
         verbose_name='Картинка с экскурсии',
-        blank=True,
         )
 
     number = models.IntegerField(
