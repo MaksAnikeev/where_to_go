@@ -6,11 +6,6 @@ from places.models import Place
 
 
 def place_info(place):
-    if place.title.partition('«')[2].partition('»')[0]:
-        title = place.title.partition('«')[2].partition('»')[0]
-    else:
-        title = place.title
-
     return {
         "type": "Feature",
         "geometry": {
@@ -18,7 +13,7 @@ def place_info(place):
             "coordinates": [place.lng, place.lat]
             },
         "properties": {
-            "title": title,
+            "title": place.title,
             "placeId": place.id,
             "detailsUrl": reverse('place_info', args=[place.id])
             },
@@ -51,10 +46,8 @@ def places(request, place_id):
         }
     response = JsonResponse(
         place_info,
-        safe=False,
         json_dumps_params={
-            'ensure_ascii': False,
-            'indent': 2
+            'ensure_ascii': False
             }
         )
     return response
