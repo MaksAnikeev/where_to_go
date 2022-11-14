@@ -16,13 +16,13 @@ def place_info(place):
         "geometry": {
             "type": "Point",
             "coordinates": [place.lng, place.lat]
-        },
+            },
         "properties": {
             "title": title,
             "placeId": place.id,
             "detailsUrl": reverse('place_info', args=[place.id])
-        },
-    }
+            },
+        }
 
 
 def index_page(request):
@@ -30,9 +30,10 @@ def index_page(request):
     context = {
         "places_info": {
             "type": "FeatureCollection",
-            "features": [place_info(place) for place in places]}
+            "features": [place_info(place) for place in places]
+            }
 
-    }
+        }
     return render(request, 'index.html', context)
 
 
@@ -46,10 +47,14 @@ def places(request, place_id):
         "coordinates": {
               "lng": place.lng,
               "lat": place.lat
+              }
         }
-    }
-    response = JsonResponse(place_info,
-                            safe=False,
-                            json_dumps_params={'ensure_ascii': False,
-                                               'indent': 2})
+    response = JsonResponse(
+        place_info,
+        safe=False,
+        json_dumps_params={
+            'ensure_ascii': False,
+            'indent': 2
+            }
+        )
     return response

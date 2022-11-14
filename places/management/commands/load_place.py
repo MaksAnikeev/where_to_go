@@ -8,7 +8,11 @@ class Command(BaseCommand):
     help = u'Заполнение базы данных по ссылке на джейсон'
 
     def add_arguments(self, parser):
-        parser.add_argument('url', type=str, help=u'url адрес джейсона')
+        parser.add_argument(
+            'url',
+            type=str,
+            help=u'url адрес джейсона'
+            )
 
     def handle(self, *args, **kwargs):
         url = kwargs['url']
@@ -26,7 +30,7 @@ class Command(BaseCommand):
             description_long=description_long,
             lng=lng,
             lat=lat
-        )
+            )
 
         imgs = place_params['imgs']
         for number, img in enumerate(imgs, start=1):
@@ -39,5 +43,5 @@ class Command(BaseCommand):
                 place=place[0],
                 img=os.path.join('place_images', f'{title}{number}.jpg'),
                 number=number,
-            )
+                )
         print(f'Объект {title} с соответствующими картинками создан')
