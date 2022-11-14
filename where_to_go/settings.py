@@ -11,11 +11,13 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 import os
+
+from environs import Env
 from pathlib import Path
 
-from dotenv import load_dotenv
 
-load_dotenv()
+env = Env()
+env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -24,14 +26,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ['SECRET_KEY']
+SECRET_KEY = env.str('SECRET_KEY', 'REPLACE_ME')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ['DEBUG']
+DEBUG = env.bool('DEBUG', True)
 
 INTERNAL_IPS = ["127.0.0.1", ]
 
-ALLOWED_HOSTS = [os.environ['ALLOWED_HOSTS'], '.localhost']
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', [])
 
 # Application definition
 
@@ -86,7 +88,7 @@ WSGI_APPLICATION = 'where_to_go.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / os.environ['DB_NAME'],
+        'NAME': BASE_DIR / env.str('DB_NAME'),
     }
 }
 
