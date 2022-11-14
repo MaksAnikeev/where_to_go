@@ -5,7 +5,7 @@ from django.urls import reverse
 from places.models import Place
 
 
-def place_info(place):
+def place_params(place):
     return {
         "type": "Feature",
         "geometry": {
@@ -15,17 +15,17 @@ def place_info(place):
         "properties": {
             "title": place.title,
             "placeId": place.id,
-            "detailsUrl": reverse('place_info', args=[place.id])
+            "detailsUrl": reverse('places', args=[place.id])
             },
         }
 
 
 def index_page(request):
-    places = Place.objects.all()
+    objects_places = Place.objects.all()
     context = {
         "places_info": {
             "type": "FeatureCollection",
-            "features": [place_info(place) for place in places]
+            "features": [place_params(place) for place in objects_places]
             }
 
         }
