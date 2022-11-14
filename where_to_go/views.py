@@ -21,7 +21,7 @@ def place_info(place):
 
 
 def index_page(request):
-    places = Place.objects.prefetch_related('images')
+    places = Place.objects.all()
     context = {
         "places_info": {
             "type": "FeatureCollection",
@@ -36,7 +36,7 @@ def places(request, place_id):
     place = get_object_or_404(Place, pk=int(place_id))
     place_info = {
         "title": place.title,
-        "imgs": [image.img.url for image in place.images.all()],
+        "imgs": [image.img.url for image in place.images.all().order_by('number')],
         "description_short": place.description_short,
         "description_long": place.description_long,
         "coordinates": {
