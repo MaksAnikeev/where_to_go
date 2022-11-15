@@ -32,6 +32,15 @@ pip install -r requirements.txt
 python3 manage.py migrate
 ```
 
+Соберите все файлы статики в одном месте. Создайте в корневом каталоге папку `collected_static`
+укажите в файле settings.py значение
+
+`STATIC_ROOT = 'collected_static'`
+И запустите сервер с командой `collectstatic`
+```
+python manage.py collectstatic
+```
+
 Запустите разработческий сервер
 
 ```

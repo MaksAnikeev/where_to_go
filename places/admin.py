@@ -4,6 +4,7 @@ from django.utils.html import format_html
 
 from .models import Image, Place
 
+
 class ImageTabularInline(SortableStackedInline):
     model = Image
     fields = ['img', 'preview', 'number']
