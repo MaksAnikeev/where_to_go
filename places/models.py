@@ -34,7 +34,7 @@ class Place(models.Model):
         verbose_name_plural = 'места'
 
     def __str__(self):
-        return f'{self.title}'
+        return self.title
 
 
 class Image(models.Model):
