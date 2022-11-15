@@ -2,6 +2,7 @@ from django.core.management.base import BaseCommand
 from ...models import Image, Place
 import requests
 import os
+from django.core.files.base import ContentFile
 
 
 class Command(BaseCommand):
@@ -24,7 +25,7 @@ class Command(BaseCommand):
         description_long = place_params['description_long']
         lng = place_params['coordinates']['lng']
         lat = place_params['coordinates']['lat']
-        place = Place.objects.get_or_create(
+        place, created = Place.objects.get_or_create(
             title=title,
             description_short=description_short,
             description_long=description_long,
@@ -32,16 +33,15 @@ class Command(BaseCommand):
             lat=lat
             )
 
-        imgs = place_params['imgs']
-        for number, img in enumerate(imgs, start=1):
-            response_img = requests.get(img)
-            response_img.raise_for_status()
-            file_path = os.path.join('media', 'place_images', f'{title}{number}.jpg')
-            with open(file_path, 'wb') as file:
-                file.write(response_img.content)
-            Image.objects.get_or_create(
-                place=place[0],
-                img=os.path.join('place_images', f'{title}{number}.jpg'),
-                number=number,
-                )
-        print(f'Объект {title} с соответствующими картинками создан')
+        if created:
+            imgs = place_params['imgs']
+            for number, img in enumerate(imgs, start=1):
+                response_img = requests.get(img)
+                response_img.raise_for_status()
+                content_file = ContentFile(response_img.content, name=f'{title}{number}.jpg')
+                Image.objects.create(
+                    place=place,
+                    img=content_file,
+                    number=number,
+                    )
+            print(f'Объект {title} с соответствующими картинками создан')
