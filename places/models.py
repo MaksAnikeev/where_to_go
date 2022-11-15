@@ -9,7 +9,9 @@ class Place(models.Model):
         )
 
     description_short = models.TextField(
-        verbose_name='Краткое описание'
+        verbose_name='Краткое описание',
+        default='',
+        blank=True
         )
 
     description_long = HTMLField(
