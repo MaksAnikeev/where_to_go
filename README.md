@@ -33,21 +33,12 @@ python3 manage.py migrate
 ```
 
 Соберите все файлы статики в одном месте. Создайте в корневом каталоге папку `collected_static`
-укажите в файле settings.py значение:
-```pycon
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
-STATIC_ROOT = 'collected_static'
-```
 
 И запустите сервер с командой `collectstatic`
 ```
 python manage.py collectstatic
 ```
-После запуска верните значения в изначальное состояние:
-```pycon
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'collected_static')]
-STATIC_ROOT = ''
-```
+
 Запустите разработческий сервер
 
 ```
