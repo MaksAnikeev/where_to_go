@@ -19,12 +19,15 @@ class Command(BaseCommand):
         for number, img in enumerate(imgs, start=1):
             response_img = requests.get(img)
             response_img.raise_for_status()
-            content_file = ContentFile(response_img.content, name=f'{title}{number}.jpg')
+            content_file = ContentFile(
+                response_img.content,
+                name=f'{title}{number}.jpg'
+                )
             Image.objects.create(
                 place=place,
                 img=content_file,
                 number=number,
-            )
+                )
 
     def handle(self, *args, **kwargs):
         url = kwargs['url']
@@ -50,5 +53,6 @@ class Command(BaseCommand):
             self.download_images(
                 place_params=place_params,
                 title=title,
-                place=place)
+                place=place
+                )
             print(f'Объект {title} с соответствующими картинками создан')
