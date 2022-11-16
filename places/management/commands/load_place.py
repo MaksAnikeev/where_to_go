@@ -19,10 +19,12 @@ class Command(BaseCommand):
         for number, image in enumerate(images, start=1):
             response_image = requests.get(image)
             response_image.raise_for_status()
+
             content_file = ContentFile(
                 response_image.content,
                 name=f'{title}{number}.jpg'
                 )
+
             Image.objects.create(
                 place=place,
                 img=content_file,
@@ -33,12 +35,14 @@ class Command(BaseCommand):
         url = kwargs['url']
         response = requests.get(url)
         response.raise_for_status()
+
         place_params = response.json()
         title = place_params['title']
         description_short = place_params.get('description_short', '')
         description_long = place_params.get('description_long', '')
         lng = place_params['coordinates']['lng']
         lat = place_params['coordinates']['lat']
+        
         place, created = Place.objects.get_or_create(
             title=title,
             lng=lng,
