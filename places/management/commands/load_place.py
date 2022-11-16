@@ -38,15 +38,17 @@ class Command(BaseCommand):
         lat = place_params.get('coordinates')['lat']
         place, created = Place.objects.get_or_create(
             title=title,
-            description_short=description_short,
-            description_long=description_long,
+            defaults={
+                'description_short': description_short,
+                'description_long': description_long
+                },
             lng=lng,
             lat=lat
             )
 
         if created:
             self.download_images(
-              place_params=place_params,
-              title=title,
-              place=place)
+                place_params=place_params,
+                title=title,
+                place=place)
             print(f'Объект {title} с соответствующими картинками создан')
