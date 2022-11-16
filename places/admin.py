@@ -1,7 +1,7 @@
 from adminsortable2.admin import SortableAdminMixin, SortableStackedInline
 from django.contrib import admin
-from django.utils.html import format_html
 
+from .download_tools import preview
 from .models import Image, Place
 
 
@@ -10,10 +10,7 @@ class ImageTabularInline(SortableStackedInline):
     fields = ['img', 'preview', 'number']
     ordering = ['number']
     readonly_fields = ['preview']
-
-    def preview(self, obj):
-        return format_html('<img src="{url}" style="max-height: 100px;">',
-                           url=obj.img.url)
+    preview = preview
 
 
 @admin.register(Place)
@@ -27,6 +24,5 @@ class ImageAdmin(admin.ModelAdmin):
     fields = ['place', 'number', 'img', 'preview', ]
     raw_id_fields = ('place',)
     readonly_fields = ['preview']
+    preview = preview
 
-    def preview(self, obj):
-        return format_html(f'<img src="{obj.img.url}" style="max-height: 100px;">')
