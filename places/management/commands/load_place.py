@@ -15,7 +15,7 @@ class Command(BaseCommand):
             )
 
     def download_images(self, place_params, title, place):
-        imgs = place_params['imgs']
+        imgs = place_params.get('imgs')
         for number, img in enumerate(imgs, start=1):
             response_img = requests.get(img)
             response_img.raise_for_status()
@@ -31,11 +31,11 @@ class Command(BaseCommand):
         response = requests.get(url)
         response.raise_for_status()
         place_params = response.json()
-        title = place_params['title']
-        description_short = place_params['description_short']
-        description_long = place_params['description_long']
-        lng = place_params['coordinates']['lng']
-        lat = place_params['coordinates']['lat']
+        title = place_params.get('title')
+        description_short = place_params.get('description_short')
+        description_long = place_params.get('description_long')
+        lng = place_params.get('coordinates')['lng']
+        lat = place_params.get('coordinates')['lat']
         place, created = Place.objects.get_or_create(
             title=title,
             description_short=description_short,
