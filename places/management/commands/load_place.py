@@ -15,12 +15,12 @@ class Command(BaseCommand):
             )
 
     def download_images(self, place_params, title, place):
-        imgs = place_params.get('imgs', [])
-        for number, img in enumerate(imgs, start=1):
-            response_img = requests.get(img)
-            response_img.raise_for_status()
+        images = place_params.get('imgs', [])
+        for number, image in enumerate(images, start=1):
+            response_image = requests.get(image)
+            response_image.raise_for_status()
             content_file = ContentFile(
-                response_img.content,
+                response_image.content,
                 name=f'{title}{number}.jpg'
                 )
             Image.objects.create(
