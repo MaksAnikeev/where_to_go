@@ -1,4 +1,4 @@
-from adminsortable2.admin import SortableAdminMixin, SortableStackedInline
+from adminsortable2.admin import SortableAdminBase, SortableStackedInline
 from django.contrib import admin
 
 from .download_tools import preview
@@ -14,7 +14,7 @@ class ImageTabularInline(SortableStackedInline):
 
 
 @admin.register(Place)
-class PlaceAdmin(SortableAdminMixin, admin.ModelAdmin):
+class PlaceAdmin(SortableAdminBase, admin.ModelAdmin):
     inlines = [ImageTabularInline, ]
 
 
