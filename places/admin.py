@@ -12,7 +12,8 @@ class ImageTabularInline(SortableStackedInline):
     readonly_fields = ['preview']
 
     def preview(self, obj):
-        return format_html(f'<img src="{obj.img.url}" style="max-height: 100px;">')
+        return format_html('<img src="{url}" style="max-height: 100px;">',
+                           url=obj.img.url)
 
 
 @admin.register(Place)
