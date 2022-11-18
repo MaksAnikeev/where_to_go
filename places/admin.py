@@ -1,7 +1,7 @@
 from adminsortable2.admin import SortableAdminBase, SortableStackedInline
 from django.contrib import admin
 
-from .download_tools import preview
+from .admin_functions import preview
 from .models import Image, Place
 
 
