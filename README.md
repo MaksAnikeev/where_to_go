@@ -4,7 +4,7 @@
 
 ![&#x41A;&#x443;&#x434;&#x430; &#x43F;&#x43E;&#x439;&#x442;&#x438;](.gitbook/assets/site.png)
 
-[Демка сайта](https://devmanorg.github.io/where-to-go-frontend/).
+[Пример работы сайта](https://maksanikeev2.pythonanywhere.com/).
 
 ## Запуск
 
@@ -24,12 +24,13 @@ pip install -r requirements.txt
 - `DEBUG` — дебаг-режим. Поставьте `True`, чтобы увидеть отладочную информацию в случае ошибки.
 - `SECRET_KEY` — секретный ключ проекта
 - `DB_NAME` — имя базы данных, например: 'db.sqlite3'
-- `ALLOWED_HOSTS` — см [документацию Django](https://docs.djangoproject.com/en/3.1/ref/settings/#allowed-hosts)
+- `ALLOWED_HOSTS` — см [документацию Django](https://docs.djangoproject.com/en/3.1/ref/settings/#allowed-hosts),
+при развертывании сайта на `pythonanywhere` здесь нужно указать `ALLOWED_HOSTS='......pythonanywhere.com'`
 
 Создайте базу данных SQLite
 
 ```sh
-python3 manage.py migrate
+python manage.py migrate
 ```
 
 Соберите все файлы статики в одном месте. Создайте в корневом каталоге папку `collected_static`
@@ -59,11 +60,15 @@ python3 manage.py runserver
 Чтобы использовать админ панель создайте суперпользователя
 
 ```
-python3 manage.py createsuperuser
+python manage.py createsuperuser
 ```
 Панель администратора будет находится по адресу:
 
 http://127.0.0.1:8000/admin/
+
+либо, если вы смотрите пример работы сайта:
+
+https://maksanikeev2.pythonanywhere.com/admin/
 
 Текущее имя - `user`, пароль - `user`
 
