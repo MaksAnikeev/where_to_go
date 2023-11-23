@@ -33,7 +33,7 @@ DEBUG = env.bool('DEBUG', True)
 
 INTERNAL_IPS = ["127.0.0.1", ]
 
-ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', [])
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', ['127.0.0.1', 'localhost'])
 
 # Application definition
 
